@@ -66,12 +66,6 @@ const Navigation = () => {
                   {item.name}
                 </button>
               ))}
-              <Link
-                to="/dashboard"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm tracking-wide font-light"
-              >
-                Dashboard
-              </Link>
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="btn-glow bg-gradient-primary text-background px-6 py-2 rounded-full text-sm font-medium hover:glow-primary transition-all duration-300"
@@ -104,13 +98,6 @@ const Navigation = () => {
                 {item.name}
               </button>
             ))}
-            <Link
-              to="/dashboard"
-              onClick={() => setIsOpen(false)}
-              className="mobile-nav-item text-2xl text-muted-foreground hover:text-foreground transition-colors duration-300 font-light tracking-wide"
-            >
-              Dashboard
-            </Link>
             <button
               onClick={() => scrollToSection('#contact')}
               className="mobile-nav-item btn-glow bg-gradient-primary text-background px-8 py-3 rounded-full text-lg font-medium hover:glow-primary transition-all duration-300"
