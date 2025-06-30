@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code, Globe, Palette, Zap, Database, Smartphone } from 'phosphor-react';
+import { Code, Globe, Palette, Lightning, Database, DeviceMobile } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,9 +16,9 @@ const About = () => {
     { icon: Code, name: 'HTML/CSS', color: 'hsl(14 100% 57%)' },
     { icon: Globe, name: 'JavaScript', color: 'hsl(53 93% 54%)' },
     { icon: Palette, name: 'React', color: 'hsl(193 95% 68%)' },
-    { icon: Zap, name: 'GSAP', color: 'hsl(82 77% 55%)' },
+    { icon: Lightning, name: 'GSAP', color: 'hsl(82 77% 55%)' },
     { icon: Database, name: 'Node.js', color: 'hsl(120 100% 40%)' },
-    { icon: Smartphone, name: 'Mobile Dev', color: 'hsl(280 100% 75%)' }
+    { icon: DeviceMobile, name: 'Mobile Dev', color: 'hsl(280 100% 75%)' }
   ];
 
   useEffect(() => {

@@ -1,8 +1,7 @@
-
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Github } from 'phosphor-react';
+import { ArrowUpRight, GithubLogo } from 'phosphor-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -182,7 +181,7 @@ const Projects = () => {
                     href={project.github}
                     className="glass glass-hover px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center"
                   >
-                    <Github size={16} />
+                    <GithubLogo size={16} />
                   </a>
                 </div>
               </div>
