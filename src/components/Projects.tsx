@@ -1,8 +1,9 @@
-
+"use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, GithubLogo, Eye, Star, Calendar } from 'phosphor-react';
+import Image from '@/components/ui/Image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +19,7 @@ const Projects = () => {
       description: "Modern shopping experience with real-time inventory and AI recommendations",
       tech: ["React", "Node.js", "MongoDB"],
       category: "web",
-      image: "/placeholder.svg",
+      image: "/images/project-1.png",
       github: "#",
       demo: "#",
       status: "completed",
@@ -31,7 +32,7 @@ const Projects = () => {
       description: "Analytics platform with machine learning insights and predictive modeling",
       tech: ["Next.js", "Python", "TensorFlow"],
       category: "ai",
-      image: "/placeholder.svg",
+      image: "/images/project-2.png",
       github: "#",
       demo: "#",
       status: "completed",
@@ -44,7 +45,7 @@ const Projects = () => {
       description: "Real-time messaging and content sharing platform with advanced privacy",
       tech: ["React Native", "Firebase", "Socket.io"],
       category: "mobile",
-      image: "/placeholder.svg",
+      image: "/images/project-3.png",
       github: "#",
       demo: "#",
       status: "in-progress",
@@ -57,7 +58,7 @@ const Projects = () => {
       description: "Collaborative project management tool with team analytics",
       tech: ["Vue.js", "Express", "PostgreSQL"],
       category: "web",
-      image: "/placeholder.svg",
+      image: "/images/project-4.png",
       github: "#",
       demo: "#",
       status: "completed",
@@ -70,7 +71,7 @@ const Projects = () => {
       description: "Real-time cryptocurrency portfolio tracker with advanced charts",
       tech: ["React", "Chart.js", "WebSocket"],
       category: "web",
-      image: "/placeholder.svg",
+      image: "/images/project-5.png",
       github: "#",
       demo: "#",
       status: "completed",
@@ -83,7 +84,7 @@ const Projects = () => {
       description: "AI-powered travel itinerary generator with budget optimization",
       tech: ["Svelte", "OpenAI", "Maps API"],
       category: "ai",
-      image: "/placeholder.svg",
+      image: "/images/project-6.png",
       github: "#",
       demo: "#",
       status: "completed",
@@ -100,6 +101,9 @@ const Projects = () => {
   ];
 
   const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+
+  // Debug: Log project images
+  console.log('Projects Debug - Image paths:', projects.map(p => ({ id: p.id, title: p.title, image: p.image })));
 
   useEffect(() => {
     const cards = cardsRef.current?.children;
@@ -257,22 +261,16 @@ const Projects = () => {
               </div>
               
               {/* Enhanced Project Image */}
-              <div className="aspect-video bg-gradient-to-br from-muted to-card p-8 flex items-center justify-center relative overflow-hidden">
-                <div className="project-image text-4xl text-gradient-primary font-light relative z-10">
-                  {project.id}
-                </div>
-                {/* Animated background pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="grid grid-cols-8 grid-rows-6 h-full w-full">
-                    {Array.from({ length: 48 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="border border-white/5 animate-pulse"
-                        style={{ animationDelay: `${i * 0.1}s` }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
+              <div className="aspect-video bg-gradient-to-br from-muted to-card relative overflow-hidden">
+                <Image 
+                  src={project.image} 
+                  alt={project.title}
+                  className="project-image w-full h-full object-cover transition-transform duration-300"
+                  loadingClassName="aspect-video rounded-t-2xl"
+                  fallback="/placeholder.svg"
+                />
+                {/* Overlay gradient for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
 
               {/* Enhanced Project Info */}
