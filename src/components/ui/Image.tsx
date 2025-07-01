@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useImageFallback } from "@/hooks/use-image-fallback";
 import { cn } from "@/lib/utils";
@@ -29,8 +30,7 @@ const Image: React.FC<ImageProps> = ({
     fallback,
   });
 
-  // Debug logs
-  console.log("Image Debug:", {
+  console.log("Image Component:", {
     originalSrc: src,
     currentSrc: imageSrc,
     isLoading,
@@ -38,29 +38,32 @@ const Image: React.FC<ImageProps> = ({
     fallback,
   });
 
-  return (
-    <div className="relative">
-      {isLoading && (
-        <div
-          className={cn(
-            "absolute inset-0 bg-gradient-to-br from-muted to-card animate-pulse rounded",
-            loadingClassName
-          )}
-        />
-      )}
-      <img
-        src={imageSrc}
-        alt={alt}
+  if (isLoading) {
+    return (
+      <div
         className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100",
-          hasError && errorClassName,
+          "bg-gradient-to-br from-muted to-card animate-pulse rounded flex items-center justify-center",
+          loadingClassName,
           className
         )}
-        onError={onError}
-        {...props}
-      />
-    </div>
+      >
+        <div className="text-muted-foreground text-sm">Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imageSrc}
+      alt={alt}
+      className={cn(
+        "transition-opacity duration-300",
+        hasError && errorClassName,
+        className
+      )}
+      onError={onError}
+      {...props}
+    />
   );
 };
 

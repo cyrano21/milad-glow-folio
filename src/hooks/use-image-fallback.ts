@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -19,21 +20,36 @@ export const useImageFallback = ({ src, fallback = '/placeholder.svg' }: UseImag
     setHasError(false);
 
     const img = new Image();
+    
     img.onload = () => {
       console.log('useImageFallback: Image loaded successfully', src);
       setIsLoading(false);
+      setHasError(false);
     };
+    
     img.onerror = (error) => {
       console.error('useImageFallback: Image failed to load', { src, error, fallback });
       setImageSrc(fallback);
       setIsLoading(false);
       setHasError(true);
     };
+    
+    // Add a timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (isLoading) {
+        console.warn('useImageFallback: Loading timeout, using fallback', { src, fallback });
+        setImageSrc(fallback);
+        setIsLoading(false);
+        setHasError(true);
+      }
+    }, 5000);
+    
     img.src = src;
 
     return () => {
       img.onload = null;
       img.onerror = null;
+      clearTimeout(timeout);
     };
   }, [src, fallback]);
 

@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -19,7 +20,7 @@ const Projects = () => {
       description: "Modern shopping experience with real-time inventory and AI recommendations",
       tech: ["React", "Node.js", "MongoDB"],
       category: "web",
-      image: "/images/project-1.png",
+      image: "/images/project-1.svg",
       github: "#",
       demo: "#",
       status: "completed",
@@ -32,7 +33,7 @@ const Projects = () => {
       description: "Analytics platform with machine learning insights and predictive modeling",
       tech: ["Next.js", "Python", "TensorFlow"],
       category: "ai",
-      image: "/images/project-2.png",
+      image: "/images/project-2.svg",
       github: "#",
       demo: "#",
       status: "completed",
@@ -45,7 +46,7 @@ const Projects = () => {
       description: "Real-time messaging and content sharing platform with advanced privacy",
       tech: ["React Native", "Firebase", "Socket.io"],
       category: "mobile",
-      image: "/images/project-3.png",
+      image: "/images/project-3.svg",
       github: "#",
       demo: "#",
       status: "in-progress",
@@ -58,7 +59,7 @@ const Projects = () => {
       description: "Collaborative project management tool with team analytics",
       tech: ["Vue.js", "Express", "PostgreSQL"],
       category: "web",
-      image: "/images/project-4.png",
+      image: "/images/project-4.svg",
       github: "#",
       demo: "#",
       status: "completed",
@@ -71,7 +72,7 @@ const Projects = () => {
       description: "Real-time cryptocurrency portfolio tracker with advanced charts",
       tech: ["React", "Chart.js", "WebSocket"],
       category: "web",
-      image: "/images/project-5.png",
+      image: "/images/project-5.svg",
       github: "#",
       demo: "#",
       status: "completed",
@@ -84,7 +85,7 @@ const Projects = () => {
       description: "AI-powered travel itinerary generator with budget optimization",
       tech: ["Svelte", "OpenAI", "Maps API"],
       category: "ai",
-      image: "/images/project-6.png",
+      image: "/images/project-6.svg",
       github: "#",
       demo: "#",
       status: "completed",
@@ -102,67 +103,48 @@ const Projects = () => {
 
   const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
 
-  // Debug: Log project images
-  console.log('Projects Debug - Image paths:', projects.map(p => ({ id: p.id, title: p.title, image: p.image })));
-
   useEffect(() => {
     const cards = cardsRef.current?.children;
     if (!cards) return;
 
-    // Enhanced entrance animation
-    gsap.from(cards, {
-      opacity: 0,
-      y: 150,
-      rotationX: 45,
-      scale: 0.8,
-      duration: 1.2,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
+    // Simplified entrance animation without opacity conflicts
+    gsap.fromTo(cards, 
+      {
+        y: 100,
+        scale: 0.9
+      },
+      {
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
       }
-    });
+    );
 
-    // Enhanced hover animations
-    Array.from(cards).forEach((card, index) => {
-      card.addEventListener('mouseenter', () => {
+    // Simplified hover animations
+    Array.from(cards).forEach((card) => {
+      const cardElement = card as HTMLElement;
+      
+      cardElement.addEventListener('mouseenter', () => {
         gsap.to(card, {
-          y: -15,
-          scale: 1.03,
-          rotationY: 5,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-        gsap.to(card.querySelector('.project-glow'), {
-          opacity: 0.8,
-          scale: 1.1,
-          duration: 0.4
-        });
-        gsap.to(card.querySelector('.project-image'), {
-          scale: 1.1,
-          duration: 0.4,
+          y: -10,
+          scale: 1.02,
+          duration: 0.3,
           ease: 'power2.out'
         });
       });
 
-      card.addEventListener('mouseleave', () => {
+      cardElement.addEventListener('mouseleave', () => {
         gsap.to(card, {
           y: 0,
           scale: 1,
-          rotationY: 0,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-        gsap.to(card.querySelector('.project-glow'), {
-          opacity: 0,
-          scale: 1,
-          duration: 0.4
-        });
-        gsap.to(card.querySelector('.project-image'), {
-          scale: 1,
-          duration: 0.4,
+          duration: 0.3,
           ease: 'power2.out'
         });
       });
@@ -175,23 +157,7 @@ const Projects = () => {
 
   const handleFilterChange = (newFilter: string) => {
     if (newFilter === filter) return;
-    
-    // Animate out current projects
-    const cards = cardsRef.current?.children;
-    if (cards) {
-      gsap.to(cards, {
-        opacity: 0,
-        y: 50,
-        scale: 0.9,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: 'power2.in',
-        onComplete: () => {
-          setFilter(newFilter);
-          // Animate in new projects will happen via useEffect
-        }
-      });
-    }
+    setFilter(newFilter);
   };
 
   return (
@@ -207,7 +173,7 @@ const Projects = () => {
             <span className="text-gradient-primary font-medium"> creative problem-solving</span>
           </p>
 
-          {/* Enhanced Filter Tabs */}
+          {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
             {categories.map((category) => (
               <button
@@ -223,24 +189,18 @@ const Projects = () => {
                   {category.name}
                   <span className="text-xs opacity-75">({category.count})</span>
                 </span>
-                {filter === category.id && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                )}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Enhanced Projects Grid */}
+        {/* Projects Grid */}
         <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="project-card glass glass-hover rounded-2xl overflow-hidden relative group"
             >
-              {/* Enhanced glow effect */}
-              <div className="project-glow absolute -inset-1 bg-gradient-primary opacity-0 blur-xl rounded-2xl"></div>
-              
               {/* Status indicator */}
               {project.featured && (
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-1 bg-gradient-primary text-background px-3 py-1 rounded-full text-xs font-medium">
@@ -260,20 +220,17 @@ const Projects = () => {
                 </div>
               </div>
               
-              {/* Enhanced Project Image */}
+              {/* Project Image */}
               <div className="aspect-video bg-gradient-to-br from-muted to-card relative overflow-hidden">
                 <Image 
                   src={project.image} 
                   alt={project.title}
-                  className="project-image w-full h-full object-cover transition-transform duration-300"
-                  loadingClassName="aspect-video rounded-t-2xl"
+                  className="w-full h-full object-cover"
                   fallback="/placeholder.svg"
                 />
-                {/* Overlay gradient for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
 
-              {/* Enhanced Project Info */}
+              {/* Project Info */}
               <div className="p-6 relative">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-medium text-foreground group-hover:text-gradient-primary transition-all duration-300">
@@ -289,20 +246,19 @@ const Projects = () => {
                   {project.description}
                 </p>
 
-                {/* Enhanced Tech Stack */}
+                {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, index) => (
+                  {project.tech.map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 text-xs bg-white/5 text-muted-foreground rounded-full border border-white/10 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
-                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Enhanced Action Buttons */}
+                {/* Action Buttons */}
                 <div className="flex gap-3">
                   <a
                     href={project.demo}
@@ -313,7 +269,6 @@ const Projects = () => {
                       Live Demo
                     </span>
                     <ArrowUpRight size={16} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                   </a>
                   <a
                     href={project.github}
